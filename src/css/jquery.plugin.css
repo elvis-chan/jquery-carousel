@@ -1,3 +1,10 @@
 .ec-title {
   color: #f00;
 }
+
+body {
+
+  & .ec-title {
+    font-size: 20px;
+  }
+}
