@@ -2,7 +2,7 @@
   position: relative;
   height: 450px;
   max-height: 800px;
-  background-color: #f00;
+  background-color: #000;
   overflow: hidden;
 
   @media only screen and (min-width: 600px) {
@@ -63,19 +63,34 @@
     padding: 0;
     width: 100%;
     list-style: none;
+
+    & li {
+      font-size: 0;
+
+      &:not(:first-child) {
+        margin-left: 8px;
+      }
+
+      &.ec-selected button {
+        background-color: #fff;
+        opacity: 1;
+      }
+    }
   
     & button {
       cursor: pointer;
       display: inline-block;
       position: relative;
-      line-height: 0;
-      margin: 0 5px;
-      text-indent: -999em;
-      border: 1px solid #fff;
-      border-radius: 50%;
       width: 17px;
       height: 17px;
+      border-radius: 50%;
+      border: 1px solid #fff;
+      outline-width: 0;
+      background-color: transparent;
       opacity: .4;
+      line-height: 0;
+      text-indent: -999em;
+      transition: all 200ms ease-in-out;
     }
   }
 }

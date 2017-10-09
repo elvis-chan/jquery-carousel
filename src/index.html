@@ -4,17 +4,68 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>jQuery Plugin Boilerplate (gulp)</title>
-  <link rel="stylesheet" href="./css/jquery.plugin.min.css">
+  <title>jQuery Carousel</title>
+  <link rel="stylesheet" href="./css/jquery.carousel.min.css">
+  <style>
+    html,
+    body {
+      margin: 0;
+      background-color: #000;
+    }
+
+    .title {
+      margin: 12px 0;
+      font-size: 24px;
+    }
+
+    .caption {
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .csi-2016 {
+      background-image: url(https://resource-tfidm-com.akamaized.net/content/img/resource/home/banners/csi_bkg.png);
+    }
+
+    .rex-conference {
+      background-image: url(https://resource-tfidm-com.akamaized.net/content/img/resource/home/1/1_wonder_kid_v6_b.jpg);
+    }
+
+    .ms-partnership {
+      background-image: url(https://resource-tfidm-com.akamaized.net/content/img/resource/home/1/2_v3_microsoft_partnership_b.png);
+    }
+
+    .trainee-programme {
+      background-image: url(https://resource-tfidm-com.akamaized.net/content/img/bkg/graduate-trainee/banner.jpg);
+    }
+
+    @media only screen and (min-width: 600px) {
+      .rex-conference {
+        background-image: url(https://resource-tfidm-com.akamaized.net/content/img/resource/home/1/1_wonder_kid_v6_a.jpg);  
+      }
+
+      .ms-partnership {
+        background-image: url(https://resource-tfidm-com.akamaized.net/content/img/resource/home/1/2_v3_microsoft_partnership_a.png);        
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>Hello World!</h1>
-  <h1>Hello World 2!</h1>
+  <div class="carousel">
+    <div class="csi-2016">
+      <img class="logo" src="https://resource-tfidm-com.akamaized.net/content/img/resource/home/banners/csi_logo.png" alt="">
+      <h1 class="title">CSI AWARDS 2016 SHORTLISTED</h1>
+      <p class="caption">“HERMES Encoder” was shortlisted in the category “Best digital video processing technology” of CSI Award</p>
+    </div>
+    <div class="rex-conference"></div>
+    <div class="ms-partnership"></div>
+    <div class="trainee-programme"></div>
+  </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="./js/jquery.plugin.min.js"></script>
+  <script src="./js/jquery.carousel.min.js"></script>
   <script>
-    $('h1').plugin();
+    $('.carousel').ecCarousel();
   </script>
 </body>
 </html>

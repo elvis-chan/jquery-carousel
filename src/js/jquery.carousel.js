@@ -2,7 +2,9 @@
   'use strict';
 
   const defaults = {
-    animateDuration: 200,
+    animateDuration: 700,
+    loop: true,
+    loopInterval: 5000,
   };
 
   function EcCarousel(element, options) {
@@ -21,16 +23,16 @@
       $('li', this.$dots).on('click', this.handleClickDot.bind(this));
     },
 
-    handleClickDot: function (e) {
-      this.$slides.removeClass('ec-stop-transition')
-        .css({
-          transition: `all ${this.options.animateDuration}ms ease-in-out`,
-          transform: `translateX(${-100 * $(e.currentTarget).index()}vw)`,
-        });
+    autoLoop: function () {
+      if (!this.options.loop) {
+        return false;
+      }
 
-      setTimeout(() => this.$slides.addClass('ec-stop-transition'), this.options.animateDuration);
+      clearInterval(this.autoLoopWorker);
 
-      $(this).addClass('ec-selected');
+      this.autoLoopWorker = setInterval(this.gotoNextSlide.bind(this), this.options.loopInterval);
+
+      return true;
     },
 
     buildDots: function () {
@@ -40,6 +42,7 @@
         this.$dots.append(`<li><button>${i}</button></li>`);
       }
 
+      this.$dots.children().first().addClass('ec-selected');
       this.element.append(this.$dots);
     },
 
@@ -61,6 +64,34 @@
       });
     },
 
+    gotoNextSlide: function () {
+      const $selectedDot = $('.ec-selected', this.$dots);
+
+      let $candidateDot = $selectedDot.next();
+
+      if ($candidateDot.length === 0) {
+        $candidateDot = this.$dots.children().first();
+      }
+
+      $candidateDot.click();
+    },
+
+    handleClickDot: function (e) {
+      this.$slides.removeClass('ec-stop-transition')
+        .css({
+          transition: `all ${this.options.animateDuration}ms ease-in-out`,
+          transform: `translateX(${-100 * $(e.currentTarget).index()}vw)`,
+        });
+
+      setTimeout(() => {
+        this.$slides.addClass('ec-stop-transition');
+        this.autoLoop();
+      }, this.options.animateDuration);
+
+      $('li', this.$dots).removeClass('ec-selected');
+      $(e.currentTarget).addClass('ec-selected');
+    },
+
     init: function () {
       if (!this.element.hasClass('ec-ready')) {
         this.element.addClass('ec-carousel');
@@ -70,6 +101,7 @@
         this.buildSlides();
         this.buildDots();
         this.attachEvents();
+        this.autoLoop();
 
         this.element.addClass('ec-ready');
       }

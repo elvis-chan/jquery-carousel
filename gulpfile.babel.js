@@ -43,7 +43,7 @@ gulp.task('script:compile', () => {
 });
 
 gulp.task('script:minify', () => {
-  return gulp.src('dist/js/jquery.plugin.js')
+  return gulp.src('dist/js/jquery.carousel.js')
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(rename((path) => {
       path.basename += '.min';
@@ -60,13 +60,13 @@ gulp.task('css:concat', () => {
   return gulp.src('src/**/*.css')
     .pipe(plumber())
     .pipe(postcss(postcssPlugins))
-    .pipe(concat('jquery.plugin.css'))
+    .pipe(concat('jquery.carousel.css'))
     .pipe(header(banner))
     .pipe(gulp.dest('dist/css'));
 });
 
 gulp.task('css:minify', () => {
-  return gulp.src('dist/css/jquery.plugin.css')
+  return gulp.src('dist/css/jquery.carousel.css')
     .pipe(sourcemaps.init())
     .pipe(minifyCSS())
     .pipe(rename((path) => {
