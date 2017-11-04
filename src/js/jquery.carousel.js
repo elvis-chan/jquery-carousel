@@ -19,8 +19,12 @@
 
   $.extend(EcCarousel.prototype, {
 
-    attachEvents: function () {
+    attachListeners: function () {
       $('li', this.$dots).on('click', this.handleClickDot.bind(this));
+
+      if (this.element.swipe) {
+        this.element.swipe({ swipe: this.handleSwipeCarousel.bind(this) });
+      }
     },
 
     autoLoop: function () {
@@ -64,6 +68,18 @@
       });
     },
 
+    gotoPrevSlide: function () {
+      const $selectedDot = $('.ec-selected', this.$dots);
+
+      let $candidateDot = $selectedDot.prev();
+
+      if ($candidateDot.length === 0) {
+        $candidateDot = this.$dots.children().last();
+      }
+
+      $candidateDot.click();
+    },
+
     gotoNextSlide: function () {
       const $selectedDot = $('.ec-selected', this.$dots);
 
@@ -92,6 +108,14 @@
       $(e.currentTarget).addClass('ec-selected');
     },
 
+    handleSwipeCarousel: function (e, direction) {
+      if (direction === 'left') {
+        this.gotoNextSlide();
+      } else if (direction === 'right') {
+        this.gotoPrevSlide();
+      }
+    },
+
     init: function () {
       if (!this.element.hasClass('ec-ready')) {
         this.element.addClass('ec-carousel');
@@ -100,7 +124,7 @@
 
         this.buildSlides();
         this.buildDots();
-        this.attachEvents();
+        this.attachListeners();
         this.autoLoop();
 
         this.element.addClass('ec-ready');
