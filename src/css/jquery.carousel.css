@@ -23,7 +23,6 @@
 
   & .ec-slides {
     height: 100%;
-    width: 200%;
     transition-property: translate;
     transition-timing-function: ease-in-out;
   }
