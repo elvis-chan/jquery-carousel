@@ -22,7 +22,10 @@
     attachListeners: function () {
       $('li', this.$dots).on('click', this.handleClickDot.bind(this));
 
-      if (this.element.swipe) {
+      if ($.mobile) {
+        this.element.on('swipeleft', this.gotoNextSlide.bind(this));
+        this.element.on('swiperight', this.gotoPrevSlide.bind(this));
+      } else if (this.element.swipe) {
         this.element.swipe({ swipe: this.handleSwipeCarousel.bind(this) });
       }
     },
